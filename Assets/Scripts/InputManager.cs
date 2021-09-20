@@ -4,12 +4,6 @@ using UnityEngine;
 
 public class InputManager : MonoBehaviour
 {
-
-    public Animation left;
-    public Animation right;
-    public Animation up;
-    public Animation down;
-
     [SerializeField]
     private GameObject pacStudent;
 

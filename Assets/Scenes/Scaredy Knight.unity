@@ -1568,7 +1568,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.18486694, g: 0.16767533, b: 0.2264151, a: 0}
+  m_BackGroundColor: {r: 0.13163048, g: 0.117746525, b: 0.16981131, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -3144,10 +3144,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5670423eea058324db8775b7fa9d2910, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  left: {fileID: 0}
-  right: {fileID: 0}
-  up: {fileID: 0}
-  down: {fileID: 0}
   pacStudent: {fileID: 555791512}
 --- !u!114 &1904036321
 MonoBehaviour:

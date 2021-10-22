@@ -21,22 +21,22 @@ public class InputManager : MonoBehaviour
         if(pacStudent.transform.position == new Vector3(1, 28, 0))
         {
             pacStudent.GetComponent<Animator>().Play("PacStudentRight");
-            tweener.addTween(pacStudent.transform, pacStudent.transform.position, new Vector3(6, 28, 0), 2);
+            tweener.AddTween(pacStudent.transform, pacStudent.transform.position, new Vector3(6, 28, 0), 2);
         }
         if(pacStudent.transform.position == new Vector3(6, 28, 0))
         {
             pacStudent.GetComponent<Animator>().Play("PacStudentDown");
-            tweener.addTween(pacStudent.transform, pacStudent.transform.position, new Vector3(6, 24, 0), 2);
+            tweener.AddTween(pacStudent.transform, pacStudent.transform.position, new Vector3(6, 24, 0), 2);
         }
         if (pacStudent.transform.position == new Vector3(6, 24, 0))
         {
             pacStudent.GetComponent<Animator>().Play("PacStudentLeft");
-            tweener.addTween(pacStudent.transform, pacStudent.transform.position, new Vector3(1, 24, 0), 2);
+            tweener.AddTween(pacStudent.transform, pacStudent.transform.position, new Vector3(1, 24, 0), 2);
         }
         if (pacStudent.transform.position == new Vector3(1, 24, 0))
         {
             pacStudent.GetComponent<Animator>().Play("PacStudentUp");
-            tweener.addTween(pacStudent.transform, pacStudent.transform.position, new Vector3(1, 28, 0), 2);
+            tweener.AddTween(pacStudent.transform, pacStudent.transform.position, new Vector3(1, 28, 0), 2);
         }
     }
 }

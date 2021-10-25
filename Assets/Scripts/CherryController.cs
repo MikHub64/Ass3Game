@@ -8,6 +8,7 @@ public class CherryController : MonoBehaviour
     public Tweener tweener;
     private float duration = 5f;
     private bool moving;
+    private float timeElapsed;
 
     // Start is called before the first frame update
     void Start()
@@ -26,19 +27,25 @@ public class CherryController : MonoBehaviour
         if(moving == false)
         {
             moving = true;
-            Instantiate(cherry, new Vector3(20, 0, 0), Quaternion.identity);
-            Move(new Vector3(30, 0, 0));
+            GameObject cherryObj = Instantiate(cherry, new Vector3(13, 18, 0), Quaternion.identity);
+
+            if(timeElapsed < duration)
+            {
+                cherryObj.transform.position = Vector3.Lerp(cherryObj.transform.position, new Vector3(30, 0, 0), timeElapsed/duration);
+                timeElapsed += Time.deltaTime;
+            }
+
             yield return new WaitForSeconds(10);
-            Destroy(cherry);
+            DestroyImmediate(cherryObj, true);
             moving = false;
         }
     }
 
     private void Move(Vector3 target)
     {
-        if (!tweener.TweenExists(cherry.transform))
+        if (!tweener.TweenExists(transform))
         {
-            tweener.AddTween(cherry.transform, cherry.transform.position, target, duration);
+            tweener.AddTween(transform, transform.position, target, duration);
         }
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PacStudentController : MonoBehaviour
 {
@@ -14,6 +15,9 @@ public class PacStudentController : MonoBehaviour
     public AudioClip wall;
     private bool playing = false;
     public Animator animator;
+
+    public int score = 0;
+    private Text scoreTxt;
 
     public int[,] levelMap =
     {
@@ -54,6 +58,7 @@ public class PacStudentController : MonoBehaviour
     void Start()
     {
         position = new int[] { 1, 1 };
+        scoreTxt = GameObject.Find("ScoreNum").GetComponent<Text>();
     }
 
     // Update is called once per frame
@@ -277,13 +282,55 @@ public class PacStudentController : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if(collision.gameObject.tag == "Pellet")
+        if (other.gameObject.CompareTag("Pellet"))
         {
-            Debug.Log(collision.gameObject);
+            other.gameObject.SetActive(false);
+            score += 10;
+            scoreTxt.text = score.ToString();
+        }
 
-            collision.gameObject.SetActive(false);
+        if (other.gameObject.CompareTag("Cherry"))
+        {
+            other.gameObject.SetActive(false);
+            score += 100;
+            scoreTxt.text = score.ToString();
+        }
+
+        if (other.gameObject.CompareTag("PowerPellet"))
+        {
+            other.gameObject.SetActive(false);
+            //??
+        }
+        if (other.gameObject.CompareTag("Ghost"))
+        {
+            /**if(PELLET ACTIVE){
+                GHOST DIES
+                MUSIC CHANGE
+                score += 300;
+                scoreTxt.text = score.ToString();
+                TIMER FOR RESPAWN
+            } else **/
+            {
+                if (GameObject.Find("Life 3") != null)
+                {
+                    GameObject.Find("Life 3").SetActive(false);
+                }
+                else if (GameObject.Find("Life 2") != null)
+                {
+                    GameObject.Find("Life 2").SetActive(false);
+                }
+                else if (GameObject.Find("Life 1") != null)
+                {
+                    GameObject.Find("Life 1").SetActive(false);
+                }
+
+                //transform.position = new Vector2(1.0f, 28.0f);
+                //position = new int[]{ 1, 1 };
+            }
+
+            
         }
     }
 }

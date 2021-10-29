@@ -8,6 +8,9 @@ TagManager:
   - Ghost
   - Pellet
   - PowerPellet
+  - Score
+  - Timer
+  - ScaredTimer
   layers:
   - Default
   - TransparentFX

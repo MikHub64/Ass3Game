@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class PacStudentController : MonoBehaviour
 {
-    private char lastInput;
+    private char lastInput = '.';
     private char currentInput;
     public Tweener tweener;
     private float duration = 0.5f;
     public AudioSource footstepSource;
     public AudioClip footstep;
+    public AudioSource wallSource;
+    public AudioClip wall;
     private bool playing = false;
     public Animator animator;
 
@@ -29,7 +31,6 @@ public class PacStudentController : MonoBehaviour
         {0,0,0,0,0,2,5,4,4,0,0,0,0,0,0,0,0,0,0,4,4,5,2,0,0,0,0,0},
         {0,0,0,0,0,2,5,4,4,0,3,4,4,0,0,4,4,3,0,4,4,5,2,0,0,0,0,0},
         {2,2,2,2,2,1,5,3,3,0,4,0,0,0,0,0,0,4,0,3,3,5,1,2,2,2,2,2},
-        {0,0,0,0,0,0,5,0,0,0,4,0,0,0,0,0,0,4,0,0,0,5,0,0,0,0,0,0},
         {0,0,0,0,0,0,5,0,0,0,4,0,0,0,0,0,0,4,0,0,0,5,0,0,0,0,0,0},
         {2,2,2,2,2,1,5,3,3,0,4,0,0,0,0,0,0,4,0,3,3,5,1,2,2,2,2,2},
         {0,0,0,0,0,2,5,4,4,0,3,4,4,0,0,4,4,3,0,4,4,5,2,0,0,0,0,0},
@@ -61,118 +62,211 @@ public class PacStudentController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.W))
         {
             lastInput = 'W';
-            if (levelMap[position[0]-1, position[1]] == 0 || levelMap[position[0]-1, position[1]] == 5 || levelMap[position[0]-1, position[1]] == 6)
-            {
-                position[0]--;
-                Move(transform.position + new Vector3(0.0f, 1.0f, 0.0f));
-                animator.speed = 1;
-            }
-            else animator.speed = 0;
         }
 
         if (Input.GetKeyDown(KeyCode.A))
         {
             lastInput = 'A';
-            if (levelMap[position[0], position[1]-1] == 0 || levelMap[position[0], position[1]-1] == 5 || levelMap[position[0], position[1]-1] == 6)
-            {
-                position[1]--;
-                Move(transform.position + new Vector3(-1.0f, 0.0f, 0.0f));
-                animator.speed = 1;
-            }
-            else animator.speed = 0;
         }
 
         if (Input.GetKeyDown(KeyCode.S))
         {
             lastInput = 'S';
-            if (levelMap[position[0]+1, position[1]] == 0 || levelMap[position[0]+1, position[1]] == 5 || levelMap[position[0]+1, position[1]] == 6)
-            {
-                position[0]++;
-                Move(transform.position + new Vector3(0.0f, -1.0f, 0.0f));
-                animator.speed = 1;
-            }
-            else animator.speed = 0;
         }
 
         if (Input.GetKeyDown(KeyCode.D))
         {
             lastInput = 'D';
-            if (levelMap[position[0], position[1]+1] == 0 || levelMap[position[0], position[1]+1] == 5 || levelMap[position[0], position[1]+1] == 6)
-            {
-                position[1]++;
-                Move(transform.position + new Vector3(1.0f, 0.0f, 0.0f));
-                animator.speed = 1;
-            }
-            else animator.speed = 0;
         }
+
 
         if (!tweener.TweenExists(transform))
         {
-            if (levelMap[position[0] - 1, position[1]] == 0 || levelMap[position[0] - 1, position[1]] == 5 || levelMap[position[0] - 1, position[1]] == 6)
-            {
-                if (lastInput.Equals('W'))
-                {
-                    position[0]--;
-                    Move(transform.position + new Vector3(0.0f, 1.0f, 0.0f));
-                    animator.speed = 1;
-                    animator.Play("PacStudentUp");
-                }
-
-            }
-            if (levelMap[position[0], position[1] - 1] == 0 || levelMap[position[0], position[1] - 1] == 5 || levelMap[position[0], position[1] - 1] == 6)
-            {
-                if (lastInput.Equals('A')) 
-                {
-                    position[1]--;
-                    Move(transform.position + new Vector3(-1.0f, 0.0f, 0.0f));
-                    animator.speed = 1;
-                    animator.Play("PacStudentLeft");
-                }
-
-            }
-            if (levelMap[position[0] + 1, position[1]] == 0 || levelMap[position[0] + 1, position[1]] == 5 || levelMap[position[0] + 1, position[1]] == 6)
-            {
-                if (lastInput.Equals('S'))
-                {
-                    position[0]++;
-                    Move(transform.position + new Vector3(0.0f, -1.0f, 0.0f));
-                    animator.speed = 1;
-                    animator.Play("PacStudentDown");
-                }
-            }
-            if (levelMap[position[0], position[1] + 1] == 0 || levelMap[position[0], position[1] + 1] == 5 || levelMap[position[0], position[1] + 1] == 6)
-            {
-                if (lastInput.Equals('D')) 
-                {
-                    position[1]++;
-                    Move(transform.position + new Vector3(1.0f, 0.0f, 0.0f));
-                    animator.speed = 1;
-                    animator.Play("PacStudentRight");
-                }
-            }
+            TryMove(lastInput);
         }
 
-        Debug.Log(levelMap[position[0], position[1] + 1]);
-        Debug.Log(levelMap[position[0], position[1] - 1]);
-        Debug.Log(levelMap[position[0] + 1, position[1]]);
-        Debug.Log(levelMap[position[0] - 1, position[1]]);
-        Debug.Log(position[0] + " " + position[1]);
-
         StartCoroutine(FootstepAudio());
+
+        if(lastInput != '.')
+        {
+            StartCoroutine(WallSound());
+        }
+
+
+        if(position[0] == 14 && position[1] - 1 == 0)
+        {
+            transform.position = new Vector2(transform.position.x + 24, transform.position.y);
+            position[0] = 14;
+            position[1] = 24;
+        }
+
+        if (position[0] == 14 && position[1] + 1 == 28)
+        {
+            transform.position = new Vector2(transform.position.x - 24, transform.position.y);
+            position[0] = 14;
+            position[1] = 1;
+        }
     }
 
     private void Move(Vector3 target)
     {
         if (!tweener.TweenExists(transform))
         {
-                currentInput = lastInput;
-                tweener.AddTween(transform, transform.position, target, duration);
+            tweener.AddTween(transform, transform.position, target, duration);
+        }
+    }
+
+    private void TryMove(char key)
+    {
+        if (!tweener.TweenExists(transform))
+        {
+            if (key.Equals('W') && key != currentInput)
+            {
+                if (levelMap[position[0] - 1, position[1]] == 0 || levelMap[position[0] - 1, position[1]] == 5 || levelMap[position[0] - 1, position[1]] == 6)
+                {
+                    Move(transform.position + new Vector3(0.0f, 1.0f, 0.0f));
+                    currentInput = lastInput;
+                    position[0]--;
+                    animator.speed = 1;
+                    animator.Play("PacStudentUp");
+                    Debug.Log("lastUp");
+                }
+                else CurrentMove(currentInput);
+
+            }
+            if (levelMap[position[0], position[1] - 1] == 0 || levelMap[position[0], position[1] - 1] == 5 || levelMap[position[0], position[1] - 1] == 6)
+            {
+                if (key.Equals('A') && key != currentInput)
+                {
+                    Move(transform.position + new Vector3(-1.0f, 0.0f, 0.0f));
+                    currentInput = lastInput;
+                    position[1]--;
+                    animator.speed = 1;
+                    animator.Play("PacStudentLeft");
+                    Debug.Log("lastLeft");
+                }
+                else CurrentMove(currentInput);
+
+            }
+            if (levelMap[position[0] + 1, position[1]] == 0 || levelMap[position[0] + 1, position[1]] == 5 || levelMap[position[0] + 1, position[1]] == 6)
+            {
+                if (key.Equals('S') && key != currentInput)
+                {
+                    Move(transform.position + new Vector3(0.0f, -1.0f, 0.0f));
+                    currentInput = lastInput;
+                    position[0]++;
+                    animator.speed = 1;
+                    animator.Play("PacStudentDown");
+                    Debug.Log("lastDown");
+                }
+                else CurrentMove(currentInput);
+            }
+            if (levelMap[position[0], position[1] + 1] == 0 || levelMap[position[0], position[1] + 1] == 5 || levelMap[position[0], position[1] + 1] == 6)
+            {
+                if (key.Equals('D') && key != currentInput)
+                {
+                    Move(transform.position + new Vector3(1.0f, 0.0f, 0.0f));
+                    currentInput = lastInput;
+                    position[1]++;
+                    animator.speed = 1;
+                    animator.Play("PacStudentRight");
+                    Debug.Log("lastRight");
+                }
+                else CurrentMove(currentInput);
+            }
+        }
+    }
+
+    private void CurrentMove(char key)
+    {
+        if (!tweener.TweenExists(transform))
+        {
+            if (key.Equals('W'))
+            {
+                if (levelMap[position[0] - 1, position[1]] == 0 || levelMap[position[0] - 1, position[1]] == 5 || levelMap[position[0] - 1, position[1]] == 6)
+                {
+                    Move(transform.position + new Vector3(0.0f, 1.0f, 0.0f));
+                    position[0]--;
+                    animator.speed = 1;
+                    animator.Play("PacStudentUp");
+                }
+                else
+                {
+                    animator.speed = 0;
+
+                    Debug.Log(position[0] + "" + position[1]);
+                }
+
+            }
+            if (levelMap[position[0], position[1] - 1] == 0 || levelMap[position[0], position[1] - 1] == 5 || levelMap[position[0], position[1] - 1] == 6)
+            {
+                if (key.Equals('A'))
+                {
+                    Move(transform.position + new Vector3(-1.0f, 0.0f, 0.0f));
+                    position[1]--;
+                    animator.speed = 1;
+                    animator.Play("PacStudentLeft");
+                }
+                else
+                {
+                    animator.speed = 0;
+                    Debug.Log(position[0] + "" + position[1]);
+                }
+
+            }
+            if (levelMap[position[0] + 1, position[1]] == 0 || levelMap[position[0] + 1, position[1]] == 5 || levelMap[position[0] + 1, position[1]] == 6)
+            {
+                if (key.Equals('S'))
+                {
+                    Move(transform.position + new Vector3(0.0f, -1.0f, 0.0f));
+                    position[0]++;
+                    animator.speed = 1;
+                    animator.Play("PacStudentDown");
+                }
+                else
+                {
+                    animator.speed = 0;
+
+                    Debug.Log(position[0] + "" + position[1]);
+                }
+            }
+            if (levelMap[position[0], position[1] + 1] == 0 || levelMap[position[0], position[1] + 1] == 5 || levelMap[position[0], position[1] + 1] == 6)
+            {
+                if (key.Equals('D'))
+                {
+                    Move(transform.position + new Vector3(1.0f, 0.0f, 0.0f));
+                    position[1]++;
+                    animator.speed = 1;
+                    animator.Play("PacStudentRight");
+                }
+                else
+                {
+                    animator.speed = 0;
+
+                    Debug.Log(position[0] + "" + position[1]);
+                }
+            }
+        }
+    }
+
+    IEnumerator WallSound()
+    {
+        if (!tweener.TweenExists(transform) && playing == false)
+        {
+            playing = true;
+            wallSource.Play();
+            gameObject.GetComponentInChildren<ParticleSystem>().Play();
+            yield return new WaitForSeconds(0.5f);
+            wallSource.Stop();
+            gameObject.GetComponentInChildren<ParticleSystem>().Stop();
+            playing = false;
         }
     }
 
     IEnumerator FootstepAudio()
     {
-        if (tweener.TweenExists(transform) && playing == false){
+        if (tweener.TweenExists(transform) && playing == false)
+        {
             playing = true;
             footstepSource.Play();
             gameObject.GetComponentInChildren<ParticleSystem>().Play();
@@ -183,63 +277,13 @@ public class PacStudentController : MonoBehaviour
         }
     }
 
-    private void Up()
+    private void OnCollisionEnter(Collision collision)
     {
-        if (lastInput.Equals('W'))
+        if(collision.gameObject.tag == "Pellet")
         {
-            if (levelMap[position[0] - 1, position[1]] == 0 || levelMap[position[0] - 1, position[1]] == 5 || levelMap[position[0] - 1, position[1]] == 6)
-            {
-                position[0]--;
-                Move(transform.position + new Vector3(0.0f, 1.0f, 0.0f));
-                animator.speed = 1;
-            }
-            else animator.speed = 0;
-            animator.Play("PacStudentUp");
-        }
-    }
+            Debug.Log(collision.gameObject);
 
-    private void Left()
-    {
-        if (lastInput.Equals('A'))
-        {
-            if (levelMap[position[0], position[1] - 1] == 0 || levelMap[position[0], position[1] - 1] == 5 || levelMap[position[0], position[1] - 1] == 6)
-            {
-                position[1]--;
-                Move(transform.position + new Vector3(-1.0f, 0.0f, 0.0f));
-                animator.speed = 1;
-            }
-            else animator.speed = 0;
-            animator.Play("PacStudentLeft");
-        }
-    }
-
-    private void Down()
-    {
-        if (lastInput.Equals('S'))
-        {
-            if (levelMap[position[0] + 1, position[1]] == 0 || levelMap[position[0] + 1, position[1]] == 5 || levelMap[position[0] + 1, position[1]] == 6)
-            {
-                position[0]++;
-                Move(transform.position + new Vector3(0.0f, -1.0f, 0.0f));
-                animator.speed = 1;
-            }
-            else animator.speed = 0;
-            animator.Play("PacStudentDown");
-        }
-    }
-
-    private void Right()
-    {
-        if (lastInput.Equals('D'))
-        {
-            if (levelMap[position[0], position[1] + 1] == 0 || levelMap[position[0], position[1] + 1] == 5 || levelMap[position[0], position[1] + 1] == 6)
-            {
-                position[1]++;
-                Move(transform.position + new Vector3(1.0f, 0.0f, 0.0f));
-                animator.speed = 1;
-            }
-            else animator.speed = 0;
-            animator.Play("PacStudentRight");
+            collision.gameObject.SetActive(false);
         }
     }
 }

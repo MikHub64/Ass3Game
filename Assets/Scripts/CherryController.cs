@@ -1,19 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CherryController : MonoBehaviour
 {
-    public GameObject cherry;
     public Tweener tweener;
     private float duration = 5f;
     private bool moving;
-    private float timeElapsed;
+
+    private RectTransform ui;
+
+    //private Vector3 top;
+    //private Vector3 left;
+    //private Vector3 bottom;
+    //private Vector3 right;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        //ui = GameObject.Find("HUD").GetComponent<RectTransform>();
+
+        //top = new Vector3();
+        //left = new Vector3();
+        //bottom = new Vector3();
+        //right = new Vector3();
     }
 
     // Update is called once per frame
@@ -26,17 +37,15 @@ public class CherryController : MonoBehaviour
     {
         if(moving == false)
         {
-            moving = true;
-            GameObject cherryObj = Instantiate(cherry, new Vector3(13, 18, 0), Quaternion.identity);
+            //gameObject.transform.position = top;
+            gameObject.transform.position = new Vector3(-20, 15, 0);
 
-            if(timeElapsed < duration)
-            {
-                cherryObj.transform.position = Vector3.Lerp(cherryObj.transform.position, new Vector3(30, 0, 0), timeElapsed/duration);
-                timeElapsed += Time.deltaTime;
-            }
+            moving = true;
+
+            Move(new Vector3(transform.position.x + 60, transform.position.y, transform.position.z));
 
             yield return new WaitForSeconds(10);
-            DestroyImmediate(cherryObj, true);
+            gameObject.SetActive(false);
             moving = false;
         }
     }

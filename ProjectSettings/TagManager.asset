@@ -11,6 +11,8 @@ TagManager:
   - Score
   - Timer
   - ScaredTimer
+  - GameOver
+  - TeleporterLeft
   layers:
   - Default
   - TransparentFX

@@ -10,13 +10,18 @@ public class PacStudentController : MonoBehaviour
     private char currentInput = '.';
     public Tweener tweener;
     private float duration = 0.5f;
-    public AudioSource audioSource;
-    public AudioClip footstepClip;
-    public AudioClip wallClip;
-    public AudioClip pelletClip;
+    public AudioSource footstepSource;
+    public AudioSource wallSource;
+    public AudioSource pelletSource;
+    public AudioSource deathSource;
     private bool playing = false;
     public Animator animator;
     private bool pause = true;
+
+    public AudioSource musicSource;
+    public AudioClip defaultMusic;
+    public AudioClip scaredMusic;
+    public AudioClip oneDownMusic;
 
     public SaveGameManager saveManager;
     public GameMenu gameMenu;
@@ -181,7 +186,6 @@ public class PacStudentController : MonoBehaviour
                     position[0]--;
                     animator.speed = 1;
                     animator.Play("PacStudentUp");
-                    Debug.Log(lastInput);
                     currentInput = lastInput;
                 }
                 else CurrentMove(currentInput);
@@ -195,7 +199,6 @@ public class PacStudentController : MonoBehaviour
                     position[1]--;
                     animator.speed = 1;
                     animator.Play("PacStudentLeft");
-                    Debug.Log(lastInput);
                     currentInput = lastInput;
                 }
                 else CurrentMove(currentInput);
@@ -209,7 +212,6 @@ public class PacStudentController : MonoBehaviour
                     position[0]++;
                     animator.speed = 1;
                     animator.Play("PacStudentDown");
-                    Debug.Log(lastInput);
                     currentInput = lastInput;
                 }
                 else CurrentMove(currentInput);
@@ -223,7 +225,6 @@ public class PacStudentController : MonoBehaviour
                     position[1]++;
                     animator.speed = 1;
                     animator.Play("PacStudentRight");
-                    Debug.Log(lastInput);
                     currentInput = lastInput;
                 }
                 else CurrentMove(currentInput);
@@ -289,13 +290,12 @@ public class PacStudentController : MonoBehaviour
     {
         if (!tweener.TweenExists(transform) && playing == false)
         {
-            audioSource.clip = wallClip;
             playing = true;
-            audioSource.Play();
-            gameObject.GetComponentInChildren<ParticleSystem>().Play();
+            wallSource.Play();
+            GameObject.Find("WallHit").GetComponent<ParticleSystem>().Play();
             yield return new WaitForSeconds(0.5f);
-            audioSource.Stop();
-            gameObject.GetComponentInChildren<ParticleSystem>().Stop();
+            wallSource.Stop();
+            GameObject.Find("WallHit").GetComponent<ParticleSystem>().Stop();
             playing = false;
         }
     }
@@ -304,13 +304,12 @@ public class PacStudentController : MonoBehaviour
     {
         if (tweener.TweenExists(transform) && playing == false)
         {
-            audioSource.clip = footstepClip;
             playing = true;
-            audioSource.Play();
-            gameObject.GetComponentInChildren<ParticleSystem>().Play();
+            footstepSource.Play();
+            GameObject.Find("Footstep").GetComponent<ParticleSystem>().Play();
             yield return new WaitForSeconds(0.5f);
-            audioSource.Stop();
-            gameObject.GetComponentInChildren<ParticleSystem>().Stop();
+            footstepSource.Stop();
+            GameObject.Find("Footstep").GetComponent<ParticleSystem>().Stop();
             playing = false;
         }
     }
@@ -390,8 +389,9 @@ public class PacStudentController : MonoBehaviour
         startTimerTxt.text = "GO!";
         yield return new WaitForSeconds(1);
         startTimerTxt.text = null;
-        animator.speed = 1;
         pause = false;
+        musicSource.clip = defaultMusic;
+        musicSource.Play();
         cherry.SetActive(true);
     }
 
@@ -399,7 +399,8 @@ public class PacStudentController : MonoBehaviour
     {
 
         powerPellet = true;
-
+        musicSource.clip = scaredMusic;
+        musicSource.Play();
         for (int i = 10; i >= 0; i--)
         {
             scaredTimerTxt.text = i.ToString();
@@ -407,6 +408,9 @@ public class PacStudentController : MonoBehaviour
         }
 
         scaredTimer.SetActive(false);
+        musicSource.Stop();
+        musicSource.clip = defaultMusic;
+        musicSource.Play();
         powerPellet = false;
     }
 
@@ -421,10 +425,14 @@ public class PacStudentController : MonoBehaviour
     IEnumerator PacDeath()
     {
         pause = true;
+        deathSource.Play();
         animator.Play("PacStudentDead");
-        //particle effect
+        GameObject.Find("Death").GetComponent<ParticleSystem>().Play();
         yield return new WaitForSeconds(3);
+        GameObject.Find("Death").GetComponent<ParticleSystem>().Stop();
+        deathSource.Stop();
         pause = false;
+        animator.speed = 0;
         lastInput = '.';
         currentInput = '.';
         dead = true;

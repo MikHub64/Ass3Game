@@ -47,6 +47,12 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Ghost
+    uniqueID: 316814691
+    locked: 0
+  - name: Player
+    uniqueID: 535661643
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

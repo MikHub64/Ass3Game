@@ -6,25 +6,22 @@ using UnityEngine.UI;
 public class CherryController : MonoBehaviour
 {
     public Tweener tweener;
-    private float duration = 5f;
+    private float duration = 9f;
     private bool moving;
 
-    private RectTransform ui;
+    private RectTransform hudBounds;
 
-    //private Vector3 top;
-    //private Vector3 left;
-    //private Vector3 bottom;
-    //private Vector3 right;
+    private Vector3 top;
+    private Vector3 left;
+    private Vector3 bottom;
+    private Vector3 right;
+
+    private int position;
 
     // Start is called before the first frame update
     void Start()
     {
-        //ui = GameObject.Find("HUD").GetComponent<RectTransform>();
-
-        //top = new Vector3();
-        //left = new Vector3();
-        //bottom = new Vector3();
-        //right = new Vector3();
+        hudBounds = GameObject.Find("HUD").GetComponent<RectTransform>();
     }
 
     // Update is called once per frame
@@ -37,12 +34,37 @@ public class CherryController : MonoBehaviour
     {
         if(moving == false)
         {
-            //gameObject.transform.position = top;
-            gameObject.transform.position = new Vector3(-20, 15, 0);
+            top = new Vector3(Random.Range(0, hudBounds.rect.width * hudBounds.localScale.x), hudBounds.rect.height * hudBounds.localScale.y, 0);
+            left = new Vector3(-15, Random.Range(0, hudBounds.rect.height * hudBounds.localScale.y), 0);
+            bottom = new Vector3(Random.Range(0, hudBounds.rect.width * hudBounds.localScale.x), -5, 0);
+            right = new Vector3(hudBounds.rect.width * hudBounds.localScale.x, Random.Range(0, hudBounds.rect.height * hudBounds.localScale.y), 0);
 
-            moving = true;
+            position = Random.Range(0, 4);
 
-            Move(new Vector3(transform.position.x + 60, transform.position.y, transform.position.z));
+            if(position == 0)
+            {
+                gameObject.transform.position = top;
+                moving = true;
+                Move(bottom);
+            }
+            if (position == 1)
+            {
+                gameObject.transform.position = left;
+                moving = true;
+                Move(right);
+            }
+            if (position == 2)
+            {
+                gameObject.transform.position = bottom;
+                moving = true;
+                Move(top);
+            }
+            if (position == 3)
+            {
+                gameObject.transform.position = right;
+                moving = true;
+                Move(left);
+            }
 
             yield return new WaitForSeconds(10);
             gameObject.SetActive(false);

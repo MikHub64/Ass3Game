@@ -10,11 +10,9 @@ public class GhostController : MonoBehaviour
     public Animator animator;
     public RuntimeAnimatorController normal;
     public RuntimeAnimatorController scared;
+    public RuntimeAnimatorController flashing;
 
     private float duration = 0.5f;
-
-    private static bool powerPellet;
-    private static bool ghostKill;
 
     // Start is called before the first frame update
     void Start()
@@ -26,15 +24,12 @@ public class GhostController : MonoBehaviour
     void Update()
     {
 
-        powerPellet = pacStudentController.powerPellet;
-        ghostKill = pacStudentController.ghostKill;
 
-
-        if (powerPellet == true)
+        if (pacStudentController.powerPellet == true)
         {
             StartCoroutine(Scared());
 
-            if (ghostKill == true)
+            if (pacStudentController.ghostKill == true)
             {
                 StartCoroutine(GhostKill());
             }
@@ -53,10 +48,10 @@ public class GhostController : MonoBehaviour
     {
         animator.runtimeAnimatorController = scared;
         yield return new WaitForSeconds(7);
-        animator.Play("GhostFlashing");
+        //animator.runtimeAnimatorController = flashing;
         yield return new WaitForSeconds(3);
         animator.runtimeAnimatorController = normal;
-        powerPellet = false;
+        pacStudentController.powerPellet = false;
     }
 
     IEnumerator GhostKill()
@@ -67,6 +62,6 @@ public class GhostController : MonoBehaviour
         animator.Play("GhostDead");
         yield return new WaitForSeconds(5);
         animator.runtimeAnimatorController = normal;
-        ghostKill = false;
+        pacStudentController.ghostKill = false;
     }
 }

@@ -10935,6 +10935,7 @@ MonoBehaviour:
   animator: {fileID: 781117294}
   normal: {fileID: 9100000, guid: cba9ec783d8e9fe44a2f647f15972aad, type: 2}
   scared: {fileID: 9100000, guid: 205b303355cbb1a4f866cb30256e01ed, type: 2}
+  flashing: {fileID: 9100000, guid: 447b49bcd8ccb324a94cceefced2b5d6, type: 2}
 --- !u!95 &781117294 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 4855287688502634463, guid: ea014e111b5ceeb45aa1a3b43f12996a, type: 3}
@@ -11666,6 +11667,8 @@ MonoBehaviour:
   wallClip: {fileID: 8300000, guid: 73c0ce3958a22a745be34ceec11d2b40, type: 3}
   pelletClip: {fileID: 8300000, guid: 7eca948088f2f1d40a3ad93efc6a4c1b, type: 3}
   animator: {fileID: 1370087731}
+  saveManager: {fileID: 0}
+  gameMenu: {fileID: 0}
   powerPellet: 0
   ghostKill: 0
   cherry: {fileID: 1834512362}
@@ -12170,7 +12173,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 00:00:00
+  m_Text: 00:00:000
 --- !u!222 &1538238137
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -12201,6 +12204,7 @@ MonoBehaviour:
   animator: {fileID: 1567686049}
   normal: {fileID: 9100000, guid: cba9ec783d8e9fe44a2f647f15972aad, type: 2}
   scared: {fileID: 9100000, guid: 205b303355cbb1a4f866cb30256e01ed, type: 2}
+  flashing: {fileID: 9100000, guid: 447b49bcd8ccb324a94cceefced2b5d6, type: 2}
 --- !u!95 &1567686049 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 4855287688502634463, guid: ea014e111b5ceeb45aa1a3b43f12996a, type: 3}
@@ -12457,6 +12461,7 @@ MonoBehaviour:
   animator: {fileID: 1794681652}
   normal: {fileID: 9100000, guid: cba9ec783d8e9fe44a2f647f15972aad, type: 2}
   scared: {fileID: 9100000, guid: 205b303355cbb1a4f866cb30256e01ed, type: 2}
+  flashing: {fileID: 9100000, guid: 447b49bcd8ccb324a94cceefced2b5d6, type: 2}
 --- !u!95 &1794681652 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 4855287688502634463, guid: ea014e111b5ceeb45aa1a3b43f12996a, type: 3}
@@ -12628,6 +12633,7 @@ MonoBehaviour:
   animator: {fileID: 1932647608}
   normal: {fileID: 9100000, guid: cba9ec783d8e9fe44a2f647f15972aad, type: 2}
   scared: {fileID: 9100000, guid: 205b303355cbb1a4f866cb30256e01ed, type: 2}
+  flashing: {fileID: 9100000, guid: 447b49bcd8ccb324a94cceefced2b5d6, type: 2}
 --- !u!95 &1932647608 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 4855287688502634463, guid: ea014e111b5ceeb45aa1a3b43f12996a, type: 3}

@@ -26,7 +26,7 @@ public class PacStudentController : MonoBehaviour
     public SaveGameManager saveManager;
     public GameMenu gameMenu;
 
-    public bool powerPellet = false;
+    public bool powerPellet { get; set; }
     private bool dead = false;
 
     public bool ghostKill = false;
@@ -82,6 +82,7 @@ public class PacStudentController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        powerPellet = false;
         saveManager = GameObject.Find("Managers").GetComponent<SaveGameManager>();
         gameMenu = GameObject.Find("Managers").GetComponent<GameMenu>();
 
@@ -397,7 +398,6 @@ public class PacStudentController : MonoBehaviour
 
     IEnumerator ScaredTimer()
     {
-
         powerPellet = true;
         musicSource.clip = scaredMusic;
         musicSource.Play();

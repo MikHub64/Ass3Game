@@ -16,12 +16,6 @@ public class UIScaling : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        hud = GameObject.Find("HUD").GetComponent<Canvas>();
-        lives = GameObject.Find("Lives");
-        score = GameObject.Find("Score");
-        time = GameObject.Find("Time");
-        scaredTime = GameObject.Find("ScaredTimer");
-        exit = GameObject.Find("Exit");
     }
 
     // Update is called once per frame

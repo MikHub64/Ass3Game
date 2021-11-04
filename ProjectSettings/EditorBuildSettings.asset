@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/PacStudent.unity
     guid: 62e536bef47ceb246bf70c60f2a90b8f
+  - enabled: 1
+    path: Assets/Scenes/InnovationScene.unity
+    guid: 997596369eb93f74f89a0c5f664a5c76
   m_configObjects: {}

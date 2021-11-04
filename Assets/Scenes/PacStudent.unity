@@ -5887,12 +5887,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 818aec0fe3d8e5d48b02bf48f1079da8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lives: {fileID: 0}
-  score: {fileID: 0}
-  time: {fileID: 0}
-  scaredTime: {fileID: 0}
-  exit: {fileID: 0}
-  hud: {fileID: 0}
+  lives: {fileID: 234803607}
+  score: {fileID: 1382172894}
+  time: {fileID: 54257925}
+  scaredTime: {fileID: 1513651372}
+  exit: {fileID: 2118126340}
+  hud: {fileID: 996448185}
 --- !u!1001 &393102511
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11668,7 +11668,6 @@ MonoBehaviour:
   oneDownMusic: {fileID: 8300000, guid: 9c3b7f89557254040a92f5785e2f4413, type: 3}
   saveManager: {fileID: 0}
   gameMenu: {fileID: 0}
-  powerPellet: 0
   ghostKill: 0
   cherry: {fileID: 1834512362}
 --- !u!95 &1370087731 stripped
@@ -17716,7 +17715,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 63.694397, y: 57.896664}
+  m_AnchoredPosition: {x: 11.2, y: 57.896664}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1988627126
@@ -18415,11 +18414,11 @@ PrefabInstance:
       objectReference: {fileID: -1882746554402935154, guid: 2e2cc3d26f0abce4690d8a2263295a41, type: 3}
     - target: {fileID: 614874423131362990, guid: ca69384d961b9414b95a375baa165213, type: 3}
       propertyPath: m_SortingLayer
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 614874423131362990, guid: ca69384d961b9414b95a375baa165213, type: 3}
       propertyPath: m_SortingLayerID
-      value: 0
+      value: 535661643
       objectReference: {fileID: 0}
     - target: {fileID: 1508595628936458293, guid: ca69384d961b9414b95a375baa165213, type: 3}
       propertyPath: m_RootOrder

@@ -11,8 +11,8 @@ Pixelland Kevin MacLeod (incompetech.com)
 Licensed under Creative Commons: By Attribution 3.0 License
 http://creativecommons.org/licenses/by/3.0/
 
-Ghastly Castle, Composed by: tobylane - https://pixabay.com/music/beats-ghastly-castle-111bpm-cm-loopable-10016/
-Licensed under the Pixabay License 
-https://pixabay.com/service/terms/#license
+Victory! Composed by: Jon K. Fite - https://opengameart.org/content/victory-2
+Licensed under Creative Commons: By Attribution 3.0 License
+http://creativecommons.org/licenses/by/3.0/
 
 All other sounds created by Michael Lipari using ChipTone at https://sfbgames.itch.io/chiptone
